@@ -13,7 +13,7 @@
   console.log('[EXT] Clicked CLOSE button');
 
   // Step 2: Wait for the close form popup to appear
-  await wait(1500);
+  await wait(500);
 
   // Enhanced select value setter with debugging
   const setSelectValue = async (selector, value, maxAttempts = 2) => {
