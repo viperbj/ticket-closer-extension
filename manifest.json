@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Ticket Closer",
+  "version": "1.0",
+  "description": "Click RUN to auto-accept and close tickets.",
+  "permissions": ["scripting", "activeTab"],
+  "host_permissions": ["https://tt.wlink.com.np/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Run Ticket Script",
+    "default_icon": {
+      "16": "icons/viper.png",
+      "32": "icons/viper.png"
+    }
+  },
+  "icons": {
+    "48": "icons/viper.png",
+    "128": "icons/viper.png"
+  }
+}
