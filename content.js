@@ -16,7 +16,7 @@
   await wait(1500);
 
   // Enhanced select value setter with debugging
-  const setSelectValue = async (selector, value, maxAttempts = 5) => {
+  const setSelectValue = async (selector, value, maxAttempts = 2) => {
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
       const el = document.querySelector(selector);
       if (el) {
@@ -41,7 +41,6 @@
   };
 
   // Step 3: Fill form fields with retry logic
-  await setSelectValue('select[name="selectize-input items required full has-options has-items"]', '** Services');
   await setSelectValue('select[name="work_duration_day"]', '0');
   await setSelectValue('select[name="work_duration_hour"]', '1');
   await setSelectValue('select[name="work_duration_minute"]', '0');
