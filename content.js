@@ -15,6 +15,57 @@
   // Step 2: Wait for the close form popup to appear
   await wait(500);
 
+  // Helper: Select from dropdown (native or custom)
+    const selectDropdownOption = async (dropdownSelector, optionText) => {
+      const dropdown = document.querySelector(dropdownSelector);
+      if (!dropdown) {
+        console.warn(`[EXT] Dropdown '${dropdownSelector}' not found`);
+        return false;
+      }
+
+      try {
+        if (dropdown.tagName === "SELECT") {
+          // Native <select>
+          const option = Array.from(dropdown.options).find(opt =>
+            opt.text.trim().toLowerCase() === optionText.toLowerCase()
+          );
+          if (option) {
+            dropdown.value = option.value;
+            dropdown.dispatchEvent(new Event('input', { bubbles: true }));
+            dropdown.dispatchEvent(new Event('change', { bubbles: true }));
+            console.log(`[EXT] Selected '${option.text}' in native <select>`);
+            return true;
+          } else {
+            console.warn(`[EXT] Option '${optionText}' not found in <select>`);
+          }
+        } else {
+          // Custom dropdown (simulate click)
+          dropdown.click(); // Open dropdown
+          console.log(`[EXT] Clicked custom dropdown '${dropdownSelector}'`);
+          await wait(300);
+
+          const options = document.querySelectorAll('.select2-results__option, li, div');
+          const targetOption = Array.from(options).find(opt =>
+            opt.textContent.trim().toLowerCase() === optionText.toLowerCase()
+          );
+          if (targetOption) {
+            targetOption.click();
+            console.log(`[EXT] Selected '${optionText}' in custom dropdown`);
+            return true;
+          } else {
+            console.warn(`[EXT] Option '${optionText}' not found in custom dropdown`);
+          }
+        }
+      } catch (err) {
+        console.error(`[EXT] Error selecting '${optionText}': ${err.message}`);
+      }
+      return false;
+    };
+
+
+
+
+  
   // Enhanced select value setter with debugging
   const setSelectValue = async (selector, value, maxAttempts = 2) => {
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
